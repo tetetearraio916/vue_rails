@@ -58,3 +58,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #jwt認証
 gem 'jwt'
+#serializer
+gem 'active_model_serializers'
