@@ -1,5 +1,6 @@
 class Api::SessionsController < ApplicationController
   include JwtAuthenticator
+  skip_before_action :jwt_authenticate, only: :create
 
   def create
     @current_user = User.find_by(email: session_params[:email])
