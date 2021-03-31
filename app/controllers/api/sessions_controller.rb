@@ -1,15 +1,14 @@
 class Api::SessionsController < ApplicationController
-  include JwtAuthenticator
-  skip_before_action :jwt_authenticate, only: :create
 
   def create
-    @current_user = User.find_by(email: session_params[:email])
-    if @current_user&.authenticate(session_params[:password])
-      jwt_token = encode(@current_user.id)
-      response.headers['X-authenticate-token'] = jwt_token
-      render json: {user: {id: @current_user.id, name: @current_user.name, email: @current_user.email, token: jwt_token}}
+    user = User.find_by(email: session_params[:email])
+
+    if user&.authenticate(session_params[:password])
+      token = Jwt::TokenProvider.call(user_id: user.id)
+
+      render json: { user: ActiveModelSerializers::SerializableResource.new(user, adapter: :attributes), token: token }, status: :created
     else
-      render json: { error: {messages: ['メールアドレスまたはパスワードに誤りがあります']}}, status: 401
+      render json: { error: {messages: exception.record.errors.full_messages } }, status: :unauthorized
     end
   end
 
