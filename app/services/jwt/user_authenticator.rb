@@ -1,4 +1,4 @@
-module Jwt::Authenticator
+module Jwt::UserAuthenticator
   extend self
 
   def call(request_headers)
