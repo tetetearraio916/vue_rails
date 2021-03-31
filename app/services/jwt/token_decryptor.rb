@@ -14,10 +14,10 @@ module Jwt::TokenDecryptor
   # 参照: Rubyチェリー本 P358 9.6.7
   def decrypt(token)
     JWT.decode(token, Rails.application.credentials.secret_key_base)
-  rescue
+  rescue StandardError
     raise InvalidTokenError
   end
 end
-# 独自の例外クラスをStandardErrorクラスを継承することにより作成
-class InvalidTokenError < StandardError; end ;
 
+# 独自の例外クラスをStandardErrorクラスを継承することにより作成
+class InvalidTokenError < StandardError; end

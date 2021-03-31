@@ -1,7 +1,6 @@
-
 require 'rails_helper'
 
-RSpec.describe "Api::Sessions", type: :request do
+RSpec.describe 'Api::Sessions', type: :request do
   describe 'POST /session' do
     let!(:user) { create(:user) }
     context '認証情報が正しい場合' do

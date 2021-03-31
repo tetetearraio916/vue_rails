@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # これによりAPIの機能を実装することが出来る。RailsのAPIモードであれば記述する必要はなし。(今回は異なる)
   protect_from_forgery with: :null_session
 
-  #　独自の認証エラーを作成
+  # 　独自の認証エラーを作成
   class AuthenticationError < StandardError; end
 
   # バリデーションの例外が発生した場合は、render_422を呼び出す
@@ -26,13 +26,12 @@ class ApplicationController < ActionController::Base
   # rescue_fromの例外を引数に取る。その例外のエラーメッセージをjsonで返す。
   def render_422(exception)
     # :unprocessable_entityは、rails特有のステータスコードの表記。
-    render json: {error: {messages: exception.record.errors.full_messages} }, status: :unprocessable_entity
+    render json: { error: { messages: exception.record.errors.full_messages } }, status: :unprocessable_entity
   end
 
   # rescue_fromの例外を引数に取る。その例外のエラーメッセージをjsonで返す。
   def not_authenticated
     # :unauthorizedは、認証が必要な場合に返す(401)
-    render json: {error: {messages: ['ログインしてください'] } }, status: :unauthorized
+    render json: { error: { messages: ['ログインしてください'] } }, status: :unauthorized
   end
-
 end

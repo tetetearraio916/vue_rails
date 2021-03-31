@@ -7,7 +7,7 @@ module Jwt::UserAuthenticator
       # トークンをデコードする
       payload = Jwt::TokenDecryptor.call(token)
       User.find(payload['user_id'])
-    rescue StandardError #StandardErrorの例外を捉えた時にはnilを返す。
+    rescue StandardError # StandardErrorの例外を捉えた時にはnilを返す。
       nil
     end
   end
